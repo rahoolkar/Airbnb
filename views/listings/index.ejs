@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirBNB | Major Project</title>
+</head>
+
+<body>
+    <div>
+        <h3>All Listings</h3>
+        <ul>
+            <% for(let listing of allListings){ %>
+                <li>
+                    <a href="/listings/<%= listing._id %>">
+                        <%= listing.title %>
+                    </a>
+
+                </li>
+                <% } %>
+        </ul>
+
+        <br><br>
+        <form action="/listings/new" method="get">
+            <button>Create Listings</button>
+        </form>
+    </div>
+</body>
+
+</html>
