@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
+const engine = require('ejs-mate');
 
 const port = 3000;
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
@@ -24,6 +25,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.engine("ejs",engine);
+app.use(express.static(path.join(__dirname,"/public")));
 
 app.listen(port, () => {
   console.log("app is running on port:", port);
@@ -92,3 +95,7 @@ app.delete("/listings/:id", async (req, res) => {
   console.log(deletedListing);
   res.redirect("/listings");
 });
+
+app.get("/error",(req,res)=>{
+  res.render("listings/error.ejs");
+})

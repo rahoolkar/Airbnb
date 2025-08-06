@@ -1,0 +1,179 @@
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.navbar {
+  height: 5rem;
+  background-color: #f7f7f7;
+}
+
+.airbnb-text {
+  color: #fe424d;
+}
+
+.fa-airbnb {
+  font-size: 2rem;
+  color: #fe424d;
+}
+
+.nav-link {
+  color: black !important;
+}
+
+.footer {
+  background-color: #f7f7f7;
+  color: #222;
+  padding: 40px 20px 20px;
+  border-top: 1px solid #ddd;
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+}
+
+.footer-column {
+  flex: 1 1 200px;
+  margin: 10px 20px;
+}
+
+.footer-column h4 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.footer-column ul li a {
+  text-decoration: none;
+  color: #222;
+}
+
+.footer-column ul li a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.footer-left {
+  margin-bottom: 10px;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.language-currency {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.language-currency i {
+  margin-right: 5px;
+}
+
+.social-icons a {
+  margin-left: 10px;
+  color: #222;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  color: #ff5a5f;
+}
+
+.card {
+  border: none !important;
+  margin-bottom: 2rem;
+}
+
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+
+.card-body {
+  padding: 0.25rem 0.5rem;
+}
+
+.listing-price {
+  color: rgb(125, 123, 123);
+  font-size: small;
+}
+
+.listing-title {
+  font-size: medium;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+.card-img-overlay {
+  opacity: 0;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
+}
+
+.listing-link {
+  text-decoration: none !important;
+}
+
+.container-box {
+  height: 100vh;
+  width: 70%;
+  margin: auto;
+  padding-top: 3rem;
+}
+
+.listing-img {
+  height: 40vh;
+  border-radius: 1rem;
+}
+
+.btn-primary {
+  background-color: #fe424d !important;
+  border: #fe424d !important;
+}
+
+.btns {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.edit-btn {
+  margin-left: 5px;
+  margin-right: 2rem;
+}
