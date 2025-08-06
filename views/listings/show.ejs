@@ -30,6 +30,13 @@
                 <%= listing.location %>
             </li>
         </ul>
+        <br><br>
+        <form action="/listings/<%= listing._id %>/edit" method="get">
+            <button>Edit Your Listing</button>
+        </form>
+        <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
+            <button>DELETE</button>
+        </form>
     </div>
 </body>
 
