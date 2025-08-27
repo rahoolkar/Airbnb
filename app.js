@@ -7,7 +7,8 @@ const methodOverride = require("method-override");
 const engine = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
-const listingSchema = require("./schema");
+const { listingSchema, reviewSchema } = require("./schema");
+const Review = require("./models/review");
 
 const port = 3000;
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
@@ -48,6 +49,18 @@ const validateSchema = (req, res, next) => {
   }
 };
 
+const validateReview = (req, res, next) => {
+  let result = reviewSchema.validate(req.body);
+  if (result.error) {
+    throw new ExpressError(
+      400,
+      "Please provide a valid comment and ratings, Thanks."
+    );
+  } else {
+    next();
+  }
+};
+
 app.get(
   "/listings",
   wrapAsync(async (req, res) => {
@@ -73,7 +86,7 @@ app.get(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs", { listing });
   })
 );
@@ -122,8 +135,35 @@ app.delete(
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);
-    console.log(deletedListing);
     res.redirect("/listings");
+  })
+);
+
+app.post(
+  "/listings/:id/reviews",
+  validateReview,
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    let listing = await Listing.findById(id);
+    let { comment, rating } = req.body;
+    let newReview = new Review({
+      comment: comment,
+      rating: rating,
+    });
+    let reviewSaved = await newReview.save();
+    listing.reviews.push(reviewSaved);
+    await listing.save();
+    res.redirect(`/listings/${id}`);
+  })
+);
+
+app.delete(
+  "/listings/:lid/reviews/:rid",
+  wrapAsync(async (req, res) => {
+    let { lid, rid } = req.params;
+    await Listing.findByIdAndUpdate(lid, { $pull: { reviews: rid } });
+    await Review.findByIdAndDelete(rid);
+    res.redirect(`/listings/${lid}`);
   })
 );
 
