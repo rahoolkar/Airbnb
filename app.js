@@ -7,6 +7,8 @@ const engine = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const reviewRouter = require("./routes/review");
 const listingRouter = require("./routes/listing");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 const port = 3000;
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
@@ -29,6 +31,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    },
+  })
+);
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.successMsg = req.flash("success");
+  res.locals.errorMsg = req.flash("error");
+  next();
+});
 
 app.listen(port, () => {
   console.log("app is running on port:", port);
@@ -39,7 +60,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/listings", listingRouter);
-app.use("/listings/:id/reviews", reviewRouter); 
+app.use("/listings/:id/reviews", reviewRouter);
 
 app.get("/error", (req, res) => {
   res.render("listings/error.ejs");

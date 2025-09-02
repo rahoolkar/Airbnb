@@ -14,6 +14,10 @@ const validateSchema = (req, res, next) => {
   }
 };
 
+router.get("/new", (req, res) => {
+  res.render("listings/new.ejs");
+});
+
 router.get(
   "/",
   wrapAsync(async (req, res) => {
@@ -31,15 +35,17 @@ router.get(
   })
 );
 
-router.get("/listings/new", (req, res) => {
-  res.render("listings/new.ejs");
-});
-
 router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id).populate("reviews");
+    if (!listing) {
+      req.flash("error", "Lisiting not found :(");
+      res.status(400);
+      res.redirect("/listings");
+      return;
+    }
     res.render("listings/show.ejs", { listing });
   })
 );
@@ -58,6 +64,7 @@ router.post(
       location,
     });
     await newListing.save();
+    req.flash("success", "Listing created successfully!");
     res.redirect("/listings");
   })
 );
@@ -88,6 +95,7 @@ router.delete(
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);
+    req.flash("error", "Listing deleted :(");
     res.redirect("/listings");
   })
 );
