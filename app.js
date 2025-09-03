@@ -7,8 +7,11 @@ const engine = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const reviewRouter = require("./routes/review");
 const listingRouter = require("./routes/listing");
+const userRouter = require("./routes/user");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const User = require("./models/user");
 
 const port = 3000;
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
@@ -44,6 +47,9 @@ app.use(
   })
 );
 app.use(flash());
+require("./passport");
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
   res.locals.successMsg = req.flash("success");
@@ -61,6 +67,7 @@ app.get("/", (req, res) => {
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 app.get("/error", (req, res) => {
   res.render("listings/error.ejs");
