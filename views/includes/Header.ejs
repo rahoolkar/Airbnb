@@ -6,10 +6,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="/"><i class="fa-brands fa-airbnb"></i><span class="airbnb-text">airbnb</span></a>
+                <a class="nav-link" href="/"><i class="fa-brands fa-airbnb"></i><span
+                        class="airbnb-text">airbnb</span></a>
                 <a class="nav-link" href="/listings">All Listings</a>
                 <a class="nav-link" href="/listings/new">Create New Listings</a>
             </div>
+        </div>
+        <div class="navbar-nav ms-auto">
+            <% if(!loggedInUser){ %>
+                <a href="/signup" class="nav-link">Sign up</a>
+                <a href="/login" class="nav-link">Log in</a>
+                <% } %>
+                    <% if(loggedInUser){ %>
+                        <a href="/logout" class="nav-link">Log out</a>
+                        <% } %>
         </div>
     </div>
 </nav>

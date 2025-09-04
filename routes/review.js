@@ -1,22 +1,9 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const { reviewSchema } = require("../schema");
 const Review = require("../models/review");
 const wrapAsync = require("../utils/wrapAsync");
 const Listing = require("../models/listing");
-const ExpressError = require("../utils/ExpressError");
-
-const validateReview = (req, res, next) => {
-  let result = reviewSchema.validate(req.body);
-  if (result.error) {
-    throw new ExpressError(
-      400,
-      "Please provide a valid comment and ratings, Thanks."
-    );
-  } else {
-    next();
-  }
-};
+const { validateReview, isLoggedIn } = require("../middlewares");
 
 router.post(
   "/",
@@ -29,6 +16,7 @@ router.post(
       comment: comment,
       rating: rating,
     });
+    newReview.author = req.user._id;
     let reviewSaved = await newReview.save();
     listing.reviews.push(reviewSaved);
     await listing.save();
@@ -38,11 +26,17 @@ router.post(
 
 router.delete(
   "/:rid",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
-    let { lid, rid } = req.params;
-    await Listing.findByIdAndUpdate(lid, { $pull: { reviews: rid } });
+    let { id, rid } = req.params;
+    let reviewToHandle = await Review.findById(rid);
+    if (!reviewToHandle.author.equals(req.user._id)) {
+      req.flash("error", "Your are not permitted to do this");
+      return res.redirect(`/listings/${id}`);
+    }
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: rid } });
     await Review.findByIdAndDelete(rid);
-    res.redirect(`/listings/${lid}`);
+    res.redirect(`/listings/${id}`);
   })
 );
 

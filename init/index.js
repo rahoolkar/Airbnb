@@ -17,9 +17,11 @@ async function main() {
 }
 
 async function initDB() {
-  const allListing = await Listing.insertMany(data.data);
-  console.log(allListing);
+  await Listing.deleteMany({});
+  const newListingData = data.data.map((obj) => {
+    return { ...obj, owner: "68b82d40a3fd1cd71dc3ce7d" };
+  });
+  await Listing.insertMany(newListingData);
 }
 
 initDB();
-
