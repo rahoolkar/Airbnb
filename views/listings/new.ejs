@@ -2,13 +2,10 @@
 
     <body>
         <div class="container-box">
-            <form action="/listings" method="post" class="needs-validation" novalidate>
+            <form action="/listings" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="title" placeholder="Add a title" id="title" class="form-control" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
                     <div class="invalid-feedback">
                         Please provide a valid title.
                     </div>
@@ -18,20 +15,16 @@
                     <label for="description" class="form-label">Description</label>
                     <textarea name="description" placeholder="Add description" id="description" class="form-control"
                         required></textarea>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+
                     <div class="invalid-feedback">
                         Please provide a valid description.
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image</label>
-                    <input type="text" name="image" placeholder="Add Image Link/URL" class="form-control" id="image">
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                    <label for="image" class="form-label">Upload Image</label>
+                    <input type="file" name="image" class="form-control" id="image">
+
                     <div class="invalid-feedback">
                         Please provide a valid image link.
                     </div>
@@ -41,9 +34,7 @@
                     <div class="mb-3 col-md-4">
                         <label for="price" class="form-label">Price</label>
                         <input type="text" name="price" placeholder="12,500" class="form-control" id="price" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
+
                         <div class="invalid-feedback">
                             Please provide a valid price.
                         </div>
@@ -53,9 +44,7 @@
                         <label for="country" class="form-label">Country</label>
                         <input type="text" name="country" placeholder="India" id="country" class="form-control"
                             required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
+
                         <div class="invalid-feedback">
                             Please provide a valid country.
                         </div>
@@ -66,9 +55,7 @@
                     <label for="location" class="form-label">Location</label>
                     <input type="text" name="location" placeholder="Delhi, India" class="form-control" id="location"
                         required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+
                     <div class="invalid-feedback">
                         Please provide a valid location.
                     </div>

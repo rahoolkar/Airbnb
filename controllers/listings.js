@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const { cloudinary } = require("../cloudinary");
 
 module.exports.indexListings = async (req, res) => {
   const allListings = await Listing.find({});
@@ -31,15 +32,18 @@ module.exports.getId = async (req, res) => {
 
 module.exports.postListing = async (req, res) => {
   let { title, description, price, image, country, location } = req.body;
+  const result = await cloudinary.uploader.upload(req.file.path, {
+    folder: "airbnb_uploads",
+  });
   let newListing = new Listing({
     title,
     description,
     price,
-    image,
     country,
     location,
   });
   newListing.owner = req.user._id;
+  newListing.image = result.secure_url;
   await newListing.save();
   req.flash("success", "Listing created successfully!");
   res.redirect("/listings");

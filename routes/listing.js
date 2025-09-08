@@ -11,6 +11,9 @@ const {
   updateListing,
   deleteListing,
 } = require("../controllers/listings");
+const { storage } = require("../cloudinary");
+const multer = require("multer");
+const upload = multer({ storage });
 
 router.get("/new", isLoggedIn, getNew);
 
@@ -20,7 +23,13 @@ router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(getEdit));
 
 router.get("/:id", wrapAsync(getId));
 
-router.post("/", isLoggedIn, validateSchema, wrapAsync(postListing));
+router.post(
+  "/",
+  isLoggedIn,
+  validateSchema,
+  upload.single("image"),
+  wrapAsync(postListing)
+);
 
 router.put("/:id", isLoggedIn, isOwner, wrapAsync(updateListing));
 
