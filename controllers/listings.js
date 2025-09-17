@@ -32,7 +32,25 @@ module.exports.getId = async (req, res) => {
     res.redirect("/listings");
     return;
   }
-  res.render("listings/show.ejs", { listing });
+  const locationToFind = `${listing.location}, ${listing.country}`;
+  try {
+    const locationToCoordinates = await fetch(
+      "https://nominatim.openstreetmap.org/search?format=json&q=" +
+        locationToFind
+    );
+    const coordinatesResponse = await locationToCoordinates.json();
+
+    if (coordinatesResponse.length > 0) {
+      const lat = coordinatesResponse[0].lat;
+      const lon = coordinatesResponse[0].lon;
+      return res.render("listings/show.ejs", { listing, lat, lon });
+    } else {
+      console.log("No results found");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching coordinates:", error);
+  }
 };
 
 module.exports.postListing = async (req, res) => {

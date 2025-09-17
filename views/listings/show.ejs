@@ -97,5 +97,36 @@
                                     </div>
                                 </div>
                                 <% } %>
+                                    <div class="col-8 offset-2">
+                                        <hr>
+                                        <h3>Where you'll be</h3>
+                                        <div id="map"></div>
+                                    </div>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                if (document.getElementById("map")) {
+
+                    const lati = <%= lat %>;
+                    const loni = <%= lon %>;
+
+                    const map = L.map("map").setView([lati, loni], 15);
+
+                    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                        maxZoom: 19,
+                        attribution: "&copy; OpenStreetMap contributors",
+                    }).addTo(map);
+
+                    const customIcon = L.icon({
+                        iconUrl: "/images/airbnb-marker.png", // make sure this file exists in public/images
+                        iconSize: [40, 40],
+                        iconAnchor: [20, 40],
+                        popupAnchor: [0, -40],
+                    });
+
+                    var marker = L.marker([lati, loni]).addTo(map);
+                }
+            });
+        </script>
+
     </body>
