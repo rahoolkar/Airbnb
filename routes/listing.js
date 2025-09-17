@@ -31,7 +31,13 @@ router.post(
   wrapAsync(postListing)
 );
 
-router.put("/:id", isLoggedIn, isOwner, wrapAsync(updateListing));
+router.put(
+  "/:id",
+  isLoggedIn,
+  isOwner,
+  upload.single("image"),
+  wrapAsync(updateListing)
+);
 
 router.delete("/:id", isLoggedIn, isOwner, wrapAsync(deleteListing));
 

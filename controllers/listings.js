@@ -13,7 +13,12 @@ module.exports.getNew = (req, res) => {
 module.exports.getEdit = async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
-  res.render("listings/edit.ejs", { listing });
+  const originalImageUrl = listing.image;
+  const newImageUrl = originalImageUrl.replace(
+    "/upload",
+    "/upload/w_100,h_100,c_fill,q_30,e_blur:50"
+  );
+  res.render("listings/edit.ejs", { listing, newImageUrl });
 };
 
 module.exports.getId = async (req, res) => {
@@ -51,19 +56,21 @@ module.exports.postListing = async (req, res) => {
 
 module.exports.updateListing = async (req, res) => {
   const { id } = req.params;
-  const { title, description, image, price, country, location } = req.body;
-  await Listing.findByIdAndUpdate(
+  const { title, description, price, country, location } = req.body;
+  const { path } = req.file;
+  const listingUpdated = await Listing.findByIdAndUpdate(
     id,
     {
       title,
       description,
       price,
       country,
-      image,
       location,
     },
     { new: true, runValidators: true }
   );
+  listingUpdated.image = path;
+  await listingUpdated.save();
   res.redirect(`/listings/${id}`);
 };
 

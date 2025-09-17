@@ -2,7 +2,8 @@
 
     <body>
         <div class="container-box">
-            <form action="/listings/<%= listing._id %>?_method=PUT" method="post" class="needs-validation" novalidate>
+            <form action="/listings/<%= listing._id %>?_method=PUT" method="post" class="needs-validation" novalidate
+                enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" id="title" class="form-control" value="<%= listing.title %>" name="title"
@@ -24,13 +25,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image</label>
-                    <input type="text" id="image" class="form-control" value="<%= listing.image %>" name="image"
-                        required>
+                    <label class="form-label">Preview Image</label><br>
+                    <img src="<%= newImageUrl %>" alt="listing-image">
+                </div>
 
-                    <div class="invalid-feedback">
-                        Please provide a valid image link.
-                    </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload new image</label>
+                    <input type="file" id="image" class="form-control" name="image">
                 </div>
 
                 <div class="row">
