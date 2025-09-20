@@ -187,3 +187,64 @@ body {
   height: 400px; /* required */
   border: 1px solid #ccc; /* optional for debugging */
 }
+
+.filter-navbar {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 20px;
+  padding: 5px 0;
+  scroll-behavior: smooth;
+}
+
+.filter-navbar::-webkit-scrollbar {
+  display: none;
+}
+.filter-navbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.2s ease;
+}
+
+.filter-item i {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.filter-item span {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.filter-item:hover {
+  color: #fe424d;
+  transform: scale(1.05);
+}
+
+.sticky-filters {
+  position: sticky;
+  width: 100%;
+  top: 5rem; /* adjust based on your header height */
+  z-index: 1000; /* ensures it stays above other content */
+  background-color: #fff; /* same as page background */
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.tax-info{
+  display: none;
+}
+
+.search-bar-airbnb{
+  border-radius: 25px;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+}

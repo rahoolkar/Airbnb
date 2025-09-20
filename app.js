@@ -9,11 +9,12 @@ const reviewRouter = require("./routes/review");
 const listingRouter = require("./routes/listing");
 const userRouter = require("./routes/user");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 
 const port = 3000;
-const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
+const MONGO_URL = process.env.ATLASDB_LINK;
 
 main()
   .then(() => {
@@ -43,6 +44,13 @@ app.use(
       expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     },
+    store: MongoStore.create({
+      mongoUrl: process.env.ATLASDB_LINK,
+      crypto: {
+        secret: "squirrel",
+      },
+      touchAfter: 24 * 3600,
+    }),
   })
 );
 app.use(flash());

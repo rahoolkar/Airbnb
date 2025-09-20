@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const data = require("./data");
 const Listing = require("../models/listing");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
+const MONGO_URL = process.env.ATLASDB_LINK;
 
 main()
   .then(() => {
@@ -13,7 +13,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect("mongodb+srv://rahul-kar:3KUsvXwVXfKhZIED@cluster0.6btnnwb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 }
 
 async function initDB() {

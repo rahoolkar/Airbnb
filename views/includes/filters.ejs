@@ -1,0 +1,78 @@
+<div class="sticky-filters">
+    <div class="row align-items-center my-3 flex-wrap mr-3">
+        <div class="col-12 col-md-9 mb-2 mb-md-0">
+            <div class="filter-navbar d-flex align-items-center px-3">
+                <div class="filter-item">
+                    <i class="fas fa-home"></i>
+                    <span>Homes</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-tractor"></i>
+                    <span>Farms</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-swimming-pool"></i>
+                    <span>Pools</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-mountain"></i>
+                    <span>Mountains</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-umbrella-beach"></i>
+                    <span>Beach</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-city"></i>
+                    <span>City</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-campground"></i>
+                    <span>Camping</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-hotel"></i>
+                    <span>Hotels</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-tree"></i>
+                    <span>Cabins</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-igloo"></i>
+                    <span>Igloos</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-fire"></i>
+                    <span>Fireplaces</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-dog"></i>
+                    <span>Pet Friendly</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-3 d-flex justify-content-md-end">
+            <div class="border rounded p-2 w-100 w-md-auto">
+                <div class="form-check form-switch m-0">
+                    <input class="form-check-input" type="checkbox" id="priceToggle">
+                    <label class="form-check-label" for="priceToggle">Display prices after taxes</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let taxToggle = document.getElementById("priceToggle");
+    taxToggle.addEventListener("click", (event) => {
+        let taxInfos = document.getElementsByClassName("tax-info");
+        for (let info of taxInfos) {
+            if (info.style.display != "inline") {
+                info.style.display = "inline";
+            } else {
+                info.style.display = "none";
+            }
+        }
+    })
+</script>
