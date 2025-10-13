@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin_user
+      MONGO_INITDB_ROOT_PASSWORD: admin_password
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin_user
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin_password
+      ME_CONFIG_MONGODB_URL: mongodb://admin_user:admin_password@mongo:27017/

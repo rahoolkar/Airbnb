@@ -14,8 +14,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 
 const port = 3000;
-const MONGO_URL = process.env.ATLASDB_LINK;
-
+//const MONGO_URL = process.env.ATLASDB_LINK;
 main()
   .then(() => {
     console.log("connected to the database");
@@ -25,7 +24,11 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  // await mongoose.connect(MONGO_URL);
+  mongoose.connect("mongodb://admin_user:admin_password@mongo:27017/", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 }
 
 app.set("view engine", "ejs");
